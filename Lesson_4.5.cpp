@@ -278,7 +278,7 @@ int main() {
 		word = strtok_s(NULL, " ", &next);
 	}
 	return 0;
-}*/
+}
 
 //Stepik version
 #include <iostream>
@@ -310,5 +310,214 @@ int main() {
 			cout << word << endl;
 		word = strtok(NULL, " ");
 	}
+	return 0;
+}*/
+/*7.Пользователь вводит строку, которая состоит из слов, 
+разделенных одним или несколькими пробелами. 
+Пробелы могут быть также перед первым и после последнего слова. 
+Найдите и распечатайте самое длинное слово. 
+Если есть несколько слов максимальной длины, распечатайте первое из них.
+Sample Input:
+Don’t make a mountain out of an anthill
+Sample Output:
+mountain*/
+/*
+#include <iostream>
+#include <string.h>
+using namespace std;
+int main() {
+	const int MAXLEN = 128;
+	char str[MAXLEN];
+	fgets(str, MAXLEN, stdin);
+	char* word = strtok(str, " \n");
+	char* max = word;
+	int maxlen = strlen(word);
+	while (word != NULL) {
+		int len = strlen(word);
+		if (maxlen < len) {
+			max = word;
+			maxlen = len;
+		}
+		word = strtok(NULL, " \n");
+	}
+	cout << max << endl;
+	return 0;
+}*/
+
+/*8. Пользователь вводит количество записей, 
+а затем  сами записи об учениках (фамилия и имя, разделенные пробелами). 
+Создайте массив записей, который затем отсортируйте по алфавиту и 
+выведите на консоль (каждая запись с новой строки).
+Для решения этой задачи можно использовать как строки в стиле С 
+(динамически размещаемые в памяти), так и класс string. 
+Sample Input:
+4
+Ivanov Anton
+Smirnov Nikita
+Ivanov Andrew
+Andreev Stepan
+
+Sample Output:
+Andreev Stepan
+Ivanov Andrew
+Ivanov Anton
+Smirnov Nikita
+*/
+//Visual Studio version
+/*
+#include <iostream>
+#include <string.h>
+using namespace std;
+void sort(char** sp, int cnt) {
+	//сортировка выборкой мин значения
+	for (int k = 0; k < cnt; k++) {
+		int imin = k;
+		for (int i = k; i < cnt; i++) {
+			if (strcmp(sp[imin], sp[i]) > 0) {
+				imin = i;
+			}
+		}
+		char* p = sp[k];
+		sp[k] = sp[imin];
+		sp[imin] = p;
+	}
+}
+void output(char** sp, int cnt) {
+	for (int i = 0; i < cnt; i++) {
+		cout << sp[i] << endl;
+	}
+}
+int main() {
+	const int MAXLEN = 128;
+	char surname[MAXLEN];
+	char name[MAXLEN];
+	int cnt;
+	cin >> cnt;
+	//создаем динамический массив указателей на фамлиии
+	char** spisok = new char*[cnt];
+	for (int i = 0; i < cnt; i++) {
+		cin >> surname;
+		cin >> name;
+		//длина строки фамилия, имя, пробел и \0
+		int len = strlen(surname) + strlen(name) + 2;
+		spisok[i] = new char[len];
+		strcpy_s(spisok[i], len, surname);
+		strcat_s(spisok[i], len, " ");
+		strcat_s(spisok[i], len, name);
+	}
+	sort(spisok, cnt);
+	cout << endl;
+	output(spisok, cnt);
+	return 0;
+}
+
+
+//version Stepik
+#include <iostream>
+#include <string.h>
+using namespace std;
+//сортировка выборкой мин значения
+void sort(char** sp, int cnt) {
+	for (int k = 0; k < cnt; k++) {
+		int imin = k;
+		for (int i = k; i < cnt; i++) {
+			if (strcmp(sp[imin], sp[i]) > 0)
+				imin = i;
+		}
+		char* p = sp[k];
+		sp[k] = sp[imin];
+		sp[imin] = p;
+	}
+}
+void output(char** sp, int cnt) {
+	for (int i = 0; i < cnt; i++) {
+		cout << sp[i] << endl;
+	}
+}
+int main() {
+	const int MAXLEN = 128;
+	char surname[MAXLEN];
+	char name[MAXLEN];
+	int cnt;
+	cin >> cnt;
+	//создаем динамический массив указателей на фамлиии
+	char** spisok = new char* [cnt];
+	for (int i = 0; i < cnt; i++) {
+		cin >> surname;
+		cin >> name;
+		//длина строки фамилия, имя, пробел и \0
+		int len = strlen(surname) + strlen(name) + 2;
+		spisok[i] = new char[len];
+		strcat(strcat(strcpy(spisok[i], surname), " "), name);
+	}
+	sort(spisok, cnt);
+	output(spisok, cnt);
+	return 0;
+}
+
+//teacher variant Stepik
+#include <iostream>
+using namespace std;
+#include <string.h>
+int main() {
+	int n;
+	cin >> n;
+	while (cin.get() != '\n');
+	const int MAXLEN = 128;
+	char buffer[MAXLEN];
+	char** spisok = new char* [n];
+	for (int i = 0; i < n; i++) {
+		fgets(buffer, MAXLEN, stdin);
+		spisok[i] = new char[strlen(buffer) + 1];
+		strcpy(spisok[i], buffer);
+	}
+	//сортировка пузырьком
+	for (int k = n - 1; k > 0; k--) {
+		for (int i = 0; i < k; i++) {
+			if (strcmp(spisok[i], spisok[i + 1]) > 0) {
+				char* tmp = spisok[i];
+				spisok[i] = spisok[i + 1];
+				spisok[i + 1] = tmp;
+			}
+		}
+	}
+	for (int i = 0; i < n; i++) {
+		cout << spisok[i];
+	}
+	for (int i = 0;i < n;i++) {
+		delete[] spisok[i];
+	}
+	delete[] spisok;
+	return 0;
+}*/
+
+/*9. Пользователь вводит строку, которая может содержать пробелы. 
+Затем с новой строки пользователь вводит контрольное слово.
+Нужно удалить из исходной строки все появления этого слова. 
+Пробелы должны остаться на своем месте. 
+Должны быть удалены как отдельные слова, так и части слов.
+Используйте тип string для работы со стоками.
+Sample Input:
+When the  going  gets toughgoing, the tough get going
+going
+Sample Output:
+When the    gets tough, the tough get  */
+
+#include <iostream>
+#include <string>
+using namespace std;
+int main() {
+	string str;
+	getline(cin, str);
+	//cin.ignore(1000, '\n');
+	string word;
+	cin >> word;
+	int len = word.length();
+	int pos = str.find(word);;
+	while (pos != string::npos) {
+		str.erase(pos, len);
+		pos = str.find(word);
+	}
+	cout << str << endl;
 	return 0;
 }
